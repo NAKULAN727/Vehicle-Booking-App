@@ -37,7 +37,6 @@ router.post('/drivers', async (req, res) => {
       experience: experience || 0,
       availability: true
     });
-
     await newDriver.save();
     res.status(201).json(newDriver);
   } catch (error) {
@@ -48,12 +47,14 @@ router.post('/drivers', async (req, res) => {
 // POST /book - Create a new booking
 router.post('/book', async (req, res) => {
   try {
-    const { userId, driverId, type, date, time } = req.body;
+    const { userId, driverId, type, date, time, pickupLocation, dropLocation, carModel } = req.body;
     
-    // Check if driver is available
-    const driver = await Driver.findById(driverId);
-    if (!driver || !driver.availability) {
-      return res.status(400).json({ error: 'Driver is not available' });
+    // Check if driver is available (If driverId is provided)
+    if (driverId) {
+      const driver = await Driver.findById(driverId);
+      if (!driver || !driver.availability) {
+        return res.status(400).json({ error: 'Driver is not available' });
+      }
     }
 
     const bookingId = uuidv4();
@@ -64,7 +65,10 @@ router.post('/book', async (req, res) => {
       type,
       date,
       time,
-      status: 'confirmed'
+      pickupLocation,
+      dropLocation,
+      carModel,
+      status: 'pending'
     });
 
     await newBooking.save();
@@ -165,3 +169,43 @@ router.post('/chat', async (req, res) => {
 });
 
 module.exports = router;
+
+// PUT /bookings/:id/accept
+router.put('/bookings/:id/accept', async (req, res) => {
+  try {
+    const booking = await Booking.findByIdAndUpdate(req.params.id, { status: 'accepted' }, { new: true });
+    res.json(booking);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// PUT /bookings/:id/complete
+router.put('/bookings/:id/complete', async (req, res) => {
+  try {
+    const booking = await Booking.findByIdAndUpdate(req.params.id, { status: 'completed' }, { new: true });
+    res.json(booking);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /driver/bookings/available
+router.get('/driver/bookings/available', async (req, res) => {
+  try {
+    const bookings = await Booking.find({ status: 'pending' }).populate('driverId');
+    res.json(bookings);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /driver/bookings/my-trips
+router.get('/driver/bookings/my-trips', async (req, res) => {
+  try {
+    const bookings = await Booking.find({ status: { $in: ['accepted', 'ongoing', 'completed'] } }).populate('driverId');
+    res.json(bookings);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});

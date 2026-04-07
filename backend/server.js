@@ -21,7 +21,6 @@ const { trainChatbotModel } = require('./chatbotModel');
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/driver_booking')
   .then(async () => {
     console.log('Connected to MongoDB');
-    
     // Train Custom Machine Learning Model on startup
     await trainChatbotModel();
 
@@ -34,7 +33,6 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/driver_book
   .catch(err => {
     console.error('MongoDB connection error:', err);
   });
-
 const Driver = require('./models/Driver');
 async function seedDatabase() {
   const count = await Driver.countDocuments();
