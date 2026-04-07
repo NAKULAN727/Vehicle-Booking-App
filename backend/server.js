@@ -19,8 +19,6 @@ app.use('/api', apiRoutes);
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/driver_booking')
   .then(() => {
     console.log('Connected to MongoDB');
-    // For development: Seed Database if empty
-    seedDatabase();
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
@@ -28,18 +26,3 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/driver_book
   .catch(err => {
     console.error('MongoDB connection error:', err);
   });
-
-const Driver = require('./models/Driver');
-async function seedDatabase() {
-  const count = await Driver.countDocuments();
-  if (count === 0) {
-    const drivers = [
-      { name: 'John Doe', type: 'driver_only', availability: true },
-      { name: 'Jane Smith', type: 'driver_with_car', availability: true },
-      { name: 'Michael Johnson', type: 'driver_only', availability: true },
-      { name: 'Emily Davis', type: 'driver_with_car', availability: true },
-    ];
-    await Driver.insertMany(drivers);
-    console.log('Database seeded with dummy drivers.');
-  }
-}
