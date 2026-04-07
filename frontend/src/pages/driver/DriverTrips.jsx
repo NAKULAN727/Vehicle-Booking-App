@@ -57,7 +57,7 @@ const DriverTrips = () => {
                   {trip.status === 'completed' ? 'Completed' : 'Ongoing'}
                 </span>
                 <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-                  Driver Only
+                  {trip.type === 'driver_with_car' ? 'Driver + Vehicle' : 'Driver Only'}
                 </span>
               </div>
               
