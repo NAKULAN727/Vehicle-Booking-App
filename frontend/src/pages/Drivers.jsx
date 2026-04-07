@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { User, Car } from 'lucide-react';
+import { User, Car, MapPin } from 'lucide-react';
 
-// Using consistent API URL
 const API_URL = 'http://localhost:5000/api';
 
 const Drivers = () => {
@@ -18,7 +17,9 @@ const Drivers = () => {
   const [bookingData, setBookingData] = useState({
     date: '',
     time: '',
-    driverId: null
+    pickupLocation: '',
+    dropLocation: '',
+    carModel: ''
   });
 
   useEffect(() => {
@@ -39,8 +40,13 @@ const Drivers = () => {
   };
 
   const handleBook = async (driverId, type) => {
-    if (!bookingData.date || !bookingData.time) {
-      alert('Please select date and time');
+    if (!bookingData.date || !bookingData.time || !bookingData.pickupLocation || !bookingData.dropLocation) {
+      alert('Please fill in all standard trip details (Date, Time, Pickup, Dropoff)');
+      return;
+    }
+
+    if (type === 'driver_with_car' && !bookingData.carModel) {
+      alert('Please select a car model for your trip');
       return;
     }
     
@@ -48,8 +54,7 @@ const Drivers = () => {
       await axios.post(`${API_URL}/book`, {
         driverId,
         type,
-        date: bookingData.date,
-        time: bookingData.time,
+        ...bookingData,
         userId: 'user_123'
       });
       alert('Booking confirmed!');
@@ -63,7 +68,7 @@ const Drivers = () => {
   return (
     <div className="animation-fade-in">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h2>Available Drivers</h2>
+        <h2>Available Rides & Drivers</h2>
         <select 
           className="form-control" 
           style={{ width: 'auto' }}
@@ -76,24 +81,67 @@ const Drivers = () => {
         </select>
       </div>
 
-      <div className="glass-panel" style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-        <h4 style={{ margin: 0, paddingRight: '1rem', borderRight: '1px solid rgba(255,255,255,0.1)' }}>Booking Details:</h4>
-        <input 
-          type="date" 
-          className="form-control" 
-          style={{ padding: '0.5rem', width: 'auto' }}
-          onChange={(e) => setBookingData({...bookingData, date: e.target.value})}
-        />
-        <input 
-          type="time" 
-          className="form-control" 
-          style={{ padding: '0.5rem', width: 'auto' }}
-          onChange={(e) => setBookingData({...bookingData, time: e.target.value})}
-        />
+      <div className="glass-panel" style={{ marginBottom: '2rem' }}>
+        <h3 style={{ marginBottom: '1.5rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <MapPin size={20} /> Entrip Trip Details
+        </h3>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+          <div className="form-group" style={{ margin: 0 }}>
+            <label className="form-label">Pickup Location</label>
+            <input 
+              type="text" 
+              className="form-control" 
+              placeholder="Starting Point"
+              onChange={(e) => setBookingData({...bookingData, pickupLocation: e.target.value})}
+            />
+          </div>
+          <div className="form-group" style={{ margin: 0 }}>
+            <label className="form-label">Drop Location</label>
+            <input 
+              type="text" 
+              className="form-control" 
+              placeholder="Destination Point"
+              onChange={(e) => setBookingData({...bookingData, dropLocation: e.target.value})}
+            />
+          </div>
+          <div className="form-group" style={{ margin: 0 }}>
+            <label className="form-label">Date</label>
+            <input 
+              type="date" 
+              className="form-control" 
+              onChange={(e) => setBookingData({...bookingData, date: e.target.value})}
+            />
+          </div>
+          <div className="form-group" style={{ margin: 0 }}>
+            <label className="form-label">Time</label>
+            <input 
+              type="time" 
+              className="form-control" 
+              onChange={(e) => setBookingData({...bookingData, time: e.target.value})}
+            />
+          </div>
+        </div>
+
+        {(filterType === 'driver_with_car' || initialType === 'driver_with_car') && (
+          <div className="form-group" style={{ margin: 0, paddingTop: '1rem', borderTop: '1px solid #eaeaea' }}>
+            <label className="form-label">Select Car Model</label>
+            <select 
+              className="form-control"
+              onChange={(e) => setBookingData({...bookingData, carModel: e.target.value})}
+            >
+              <option value="">Select Preferred Model</option>
+              <option value="Sedan">Sedan</option>
+              <option value="SUV">SUV</option>
+              <option value="Hatchback">Hatchback</option>
+              <option value="Luxury">Luxury</option>
+            </select>
+          </div>
+        )}
       </div>
 
       {loading ? (
-        <p>Loading available drivers...</p>
+        <p>Searching for drivers...</p>
       ) : (
         <div className="drivers-grid">
           {drivers.map(driver => (
@@ -114,7 +162,7 @@ const Drivers = () => {
                 style={{ marginTop: '1rem' }}
                 onClick={() => handleBook(driver._id, driver.type)}
               >
-                Book Now
+                Book {driver.type === 'driver_with_car' ? 'Ride' : 'Driver'}
               </button>
             </div>
           ))}

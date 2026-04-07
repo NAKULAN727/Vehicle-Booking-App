@@ -38,20 +38,31 @@ const Bookings = () => {
           </div>
         ) : (
           bookings.map(booking => (
-            <div key={booking.bookingId} className="glass-panel booking-item">
-              <div>
-                <h3 style={{ margin: '0 0 0.5rem 0' }}>
+            <div key={booking.bookingId} className="glass-panel booking-item" style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginBottom: '1rem' }}>
+                <h3 style={{ margin: '0' }}>
                   {booking.driverId?.name || 'Assigned Driver'}
                 </h3>
-                <p className="text-muted" style={{ margin: 0, fontSize: '0.9rem' }}>
-                  Date: {booking.date} | Time: {booking.time}
+                <div className={`status-badge status-${booking.status.toLowerCase()}`}>
+                  {booking.status.toUpperCase()}
+                </div>
+              </div>
+              <div style={{ width: '100%' }}>
+                <p className="text-muted" style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem' }}>
+                  <strong>Schedule:</strong> {booking.date} at {booking.time}
                 </p>
+                <p className="text-muted" style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem' }}>
+                  <strong>From:</strong> {booking.pickupLocation || 'N/A'} <br/>
+                  <strong>To:</strong> {booking.dropLocation || 'N/A'}
+                </p>
+                {booking.carModel && (
+                  <p className="text-muted" style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem' }}>
+                    <strong>Vehicle:</strong> {booking.carModel}
+                  </p>
+                )}
                 <div className="badge" style={{ marginTop: '0.5rem' }}>
                   {booking.type === 'driver_only' ? 'Driver Only' : 'Driver + Vehicle'}
                 </div>
-              </div>
-              <div className={`status-badge status-${booking.status.toLowerCase()}`}>
-                {booking.status.toUpperCase()}
               </div>
             </div>
           ))
