@@ -10,13 +10,20 @@ const DriverRegister = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [licenseNumber, setLicenseNumber] = useState('');
+  const [type, setType] = useState('driver_only');
+  const [vehicleMake, setVehicleMake] = useState('');
+  const [vehicleModel, setVehicleModel] = useState('');
+  const [vehiclePlateNumber, setVehiclePlateNumber] = useState('');
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
       // Create actual driver profile on backend database
-      await axios.post(`${API_URL}/drivers`, { name });
+      await axios.post(`${API_URL}/drivers`, { 
+        name, email, password, licenseNumber, type, vehicleMake, vehicleModel, vehiclePlateNumber 
+      });
       alert('Driver registered successfully! Please login.');
       navigate('/driver/login');
     } catch (error) {
@@ -73,6 +80,73 @@ const DriverRegister = () => {
                 required
               />
             </div>
+            
+            <div className="auth-input-group">
+              <label htmlFor="licenseNumber">License Number</label>
+              <input 
+                type="text" 
+                id="licenseNumber"
+                className="auth-input" 
+                placeholder="Enter your license number"
+                value={licenseNumber}
+                onChange={(e) => setLicenseNumber(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="auth-input-group">
+              <label htmlFor="type">Service Type</label>
+              <select
+                id="type"
+                className="auth-input"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option value="driver_only">Driver Only</option>
+                <option value="driver_with_car">Driver + Vehicle</option>
+              </select>
+            </div>
+
+            {type === 'driver_with_car' && (
+              <>
+                <div className="auth-input-group">
+                  <label htmlFor="vehicleMake">Vehicle Make (e.g. Maruti, Honda)</label>
+                  <input 
+                    type="text" 
+                    id="vehicleMake"
+                    className="auth-input" 
+                    placeholder="Enter vehicle make"
+                    value={vehicleMake}
+                    onChange={(e) => setVehicleMake(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="auth-input-group">
+                  <label htmlFor="vehicleModel">Vehicle Model (e.g. Swift, City)</label>
+                  <input 
+                    type="text" 
+                    id="vehicleModel"
+                    className="auth-input" 
+                    placeholder="Enter vehicle model"
+                    value={vehicleModel}
+                    onChange={(e) => setVehicleModel(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="auth-input-group">
+                  <label htmlFor="vehiclePlateNumber">License Plate Number</label>
+                  <input 
+                    type="text" 
+                    id="vehiclePlateNumber"
+                    className="auth-input" 
+                    placeholder="e.g. KA-01-EQ-1234"
+                    value={vehiclePlateNumber}
+                    onChange={(e) => setVehiclePlateNumber(e.target.value)}
+                    required
+                  />
+                </div>
+              </>
+            )}
             
             <button type="submit" className="auth-btn">
               Register as Driver

@@ -155,6 +155,14 @@ const Drivers = () => {
                   <div className="badge">
                     {driver.type === 'driver_only' ? 'Driver Only' : 'Driver + Vehicle'}
                   </div>
+                  <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.4rem', fontWeight: 600 }}>
+                    Experience: {driver.experience || 1} years
+                  </div>
+                  {driver.type === 'driver_with_car' && driver.vehicleMake && (
+                     <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                       <Car size={14} /> {driver.vehicleMake} {driver.vehicleModel} • {driver.vehiclePlateNumber}
+                     </div>
+                  )}
                 </div>
               </div>
               <button 

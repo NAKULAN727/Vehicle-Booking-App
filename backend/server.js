@@ -34,10 +34,10 @@ async function seedDatabase() {
   const count = await Driver.countDocuments();
   if (count === 0) {
     const drivers = [
-      { name: 'John Doe', type: 'driver_only', availability: true },
-      { name: 'Jane Smith', type: 'driver_with_car', availability: true },
-      { name: 'Michael Johnson', type: 'driver_only', availability: true },
-      { name: 'Emily Davis', type: 'driver_with_car', availability: true },
+      { name: 'John Doe', type: 'driver_only', availability: true, licenseNumber: 'DL-1001' },
+      { name: 'Jane Smith', type: 'driver_with_car', availability: true, licenseNumber: 'DL-1002' },
+      { name: 'Michael Johnson', type: 'driver_only', availability: true, licenseNumber: 'DL-1003' },
+      { name: 'Emily Davis', type: 'driver_with_car', availability: true, licenseNumber: 'DL-1004' },
     ];
     await Driver.insertMany(drivers);
     console.log('Database seeded with dummy drivers.');

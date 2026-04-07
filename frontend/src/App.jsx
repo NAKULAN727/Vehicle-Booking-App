@@ -6,6 +6,7 @@ import Drivers from './pages/Drivers';
 import Bookings from './pages/Bookings';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Chatbot from './components/Chatbot';
 
 import DriverNavbar from './components/DriverNavbar';
 import DriverLogin from './pages/driver/DriverLogin';
@@ -56,6 +57,8 @@ function App() {
           <Route path="/driver/register" element={<DriverRegister />} />
         </Routes>
       )}
+      
+      {isAuthenticated && !isDriverRoute && <Chatbot />}
     </>
   );
 }
