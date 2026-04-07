@@ -55,7 +55,7 @@ const Drivers = () => {
         driverId,
         type,
         ...bookingData,
-        userId: 'user_123'
+        userId: localStorage.getItem('userId') || 'anon_user'
       });
       alert('Booking confirmed!');
       navigate('/bookings');

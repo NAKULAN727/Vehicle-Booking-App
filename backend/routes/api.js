@@ -2,10 +2,45 @@ const express = require('express');
 const router = express.Router();
 const Driver = require('../models/Driver');
 const Booking = require('../models/Booking');
+const User = require('../models/User'); // Added User Model
 const { v4: uuidv4 } = require('uuid');
 const { GoogleGenAI } = require('@google/genai');
 
+// --- USER AUTHENTICATION ROUTES ---
+
+// POST /auth/register
+router.post('/auth/register', async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    // Basic validation
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return res.status(400).json({ error: 'Email already in use' });
+
+    const newUser = new User({ name, email, password }); // (In prod, we would hash password)
+    await newUser.save();
+    res.status(201).json({ message: 'User created successfully', user: newUser });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /auth/login
+router.post('/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user || user.password !== password) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    // Success
+    res.json({ message: 'Login successful', user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // GET /drivers - Get all available drivers, optional filter by type
+
 router.get('/drivers', async (req, res) => {
   try {
     const { type } = req.query;
@@ -60,7 +95,7 @@ router.post('/book', async (req, res) => {
     const bookingId = uuidv4();
     const newBooking = new Booking({
       bookingId,
-      userId: userId || 'user_123', // Hardcoded user for simplicity if not provided
+      userId: userId, // Removing mock 'user_123', enforcing actual registered userId
       driverId,
       type,
       date,

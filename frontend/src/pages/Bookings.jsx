@@ -9,19 +9,19 @@ const Bookings = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const res = await axios.get(`${API_URL}/bookings?userId=${userId}`);
+        setBookings(res.data);
+      } catch (error) {
+        console.error('Error fetching bookings', error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchBookings();
   }, []);
-
-  const fetchBookings = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/bookings?userId=user_123`);
-      setBookings(res.data);
-    } catch (error) {
-      console.error('Error fetching bookings', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) return <p>Loading your bookings...</p>;
 

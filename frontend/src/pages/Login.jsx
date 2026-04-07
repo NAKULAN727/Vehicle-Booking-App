@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Lock } from 'lucide-react';
+import axios from 'axios';
 import '../Auth.css';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Simulate login
-    localStorage.setItem('isAuthenticated', 'true');
-    navigate('/home');
+    try {
+      const res = await axios.post(`${API_URL}/auth/login`, { email, password });
+      
+      // Load true identity
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('userId', res.data.user._id);
+      
+      navigate('/home');
+    } catch (error) {
+      alert(error.response?.data?.error || 'Login failed. Invalid credentials.');
+    }
   };
 
   return (

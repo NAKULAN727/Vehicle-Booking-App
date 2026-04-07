@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserCheck } from 'lucide-react';
+import axios from 'axios';
 import '../Auth.css';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -9,11 +12,19 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Simulate registration
-    localStorage.setItem('isAuthenticated', 'true');
-    navigate('/home');
+    try {
+      const res = await axios.post(`${API_URL}/auth/register`, { name, email, password });
+      
+      // Store accurate authentication status and their specific User ID
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('userId', res.data.user._id);
+      
+      navigate('/home');
+    } catch (error) {
+      alert(error.response?.data?.error || 'Registration failed');
+    }
   };
 
   return (
