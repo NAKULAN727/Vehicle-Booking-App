@@ -58,7 +58,7 @@ router.get('/drivers', async (req, res) => {
 // POST /drivers - Register a new driver
 router.post('/drivers', async (req, res) => {
   try {
-    const { name, email, password, licenseNumber, type, vehicleMake, vehicleModel, vehiclePlateNumber, experience } = req.body;
+    const { name, email, password, licenseNumber, type, vehicleMake, vehicleModel, vehiclePlateNumber, experience, seatingCapacity } = req.body;
     
     const newDriver = new Driver({
       name,
@@ -69,6 +69,7 @@ router.post('/drivers', async (req, res) => {
       vehicleMake,
       vehicleModel,
       vehiclePlateNumber,
+      seatingCapacity,
       experience: experience || 0,
       availability: true
     });
@@ -82,7 +83,7 @@ router.post('/drivers', async (req, res) => {
 // POST /book - Create a new booking
 router.post('/book', async (req, res) => {
   try {
-    const { userId, driverId, type, date, time, pickupLocation, dropLocation, carModel } = req.body;
+    const { userId, driverId, type, date, time, pickupLocation, dropLocation, carModel, passengers } = req.body;
     
     // Check if driver is available (If driverId is provided)
     if (driverId) {
@@ -103,6 +104,7 @@ router.post('/book', async (req, res) => {
       pickupLocation,
       dropLocation,
       carModel,
+      passengers,
       status: 'pending'
     });
 

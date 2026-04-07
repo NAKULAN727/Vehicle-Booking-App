@@ -19,7 +19,8 @@ const Drivers = () => {
     time: '',
     pickupLocation: '',
     dropLocation: '',
-    carModel: ''
+    carModel: '',
+    passengers: ''
   });
 
   useEffect(() => {
@@ -45,8 +46,8 @@ const Drivers = () => {
       return;
     }
 
-    if (type === 'driver_with_car' && !bookingData.carModel) {
-      alert('Please select a car model for your trip');
+    if (type === 'driver_with_car' && (!bookingData.carModel || !bookingData.passengers)) {
+      alert('Please select a car model and specify the number of passengers for your trip');
       return;
     }
     
@@ -124,18 +125,30 @@ const Drivers = () => {
         </div>
 
         {(filterType === 'driver_with_car' || initialType === 'driver_with_car') && (
-          <div className="form-group" style={{ margin: 0, paddingTop: '1rem', borderTop: '1px solid #eaeaea' }}>
-            <label className="form-label">Select Car Model</label>
-            <select 
-              className="form-control"
-              onChange={(e) => setBookingData({...bookingData, carModel: e.target.value})}
-            >
-              <option value="">Select Preferred Model</option>
-              <option value="Sedan">Sedan</option>
-              <option value="SUV">SUV</option>
-              <option value="Hatchback">Hatchback</option>
-              <option value="Luxury">Luxury</option>
-            </select>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', paddingTop: '1rem', borderTop: '1px solid #eaeaea' }}>
+            <div className="form-group" style={{ margin: 0 }}>
+              <label className="form-label">Select Car Model</label>
+              <select 
+                className="form-control"
+                onChange={(e) => setBookingData({...bookingData, carModel: e.target.value})}
+              >
+                <option value="">Select Preferred Model</option>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Hatchback">Hatchback</option>
+                <option value="Luxury">Luxury</option>
+              </select>
+            </div>
+            <div className="form-group" style={{ margin: 0 }}>
+              <label className="form-label">Passenger Capacity Needed</label>
+              <input 
+                type="number" 
+                className="form-control" 
+                placeholder="e.g. 4"
+                min="1"
+                onChange={(e) => setBookingData({...bookingData, passengers: e.target.value})}
+              />
+            </div>
           </div>
         )}
       </div>
@@ -159,9 +172,14 @@ const Drivers = () => {
                     Experience: {driver.experience || 1} years
                   </div>
                   {driver.type === 'driver_with_car' && driver.vehicleMake && (
+                    <>
                      <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
                        <Car size={14} /> {driver.vehicleMake} {driver.vehicleModel} • {driver.vehiclePlateNumber}
                      </div>
+                     <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.3rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                       <User size={14} /> Seating Capacity: <strong>{driver.seatingCapacity || 'Standard'}</strong>
+                     </div>
+                    </>
                   )}
                 </div>
               </div>

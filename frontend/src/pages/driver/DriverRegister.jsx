@@ -16,6 +16,7 @@ const DriverRegister = () => {
   const [vehicleMake, setVehicleMake] = useState('');
   const [vehicleModel, setVehicleModel] = useState('');
   const [vehiclePlateNumber, setVehiclePlateNumber] = useState('');
+  const [seatingCapacity, setSeatingCapacity] = useState('');
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -23,7 +24,7 @@ const DriverRegister = () => {
     try {
       // Create actual driver profile on backend database
       await axios.post(`${API_URL}/drivers`, { 
-        name, email, password, licenseNumber, experience, type, vehicleMake, vehicleModel, vehiclePlateNumber 
+        name, email, password, licenseNumber, experience, type, vehicleMake, vehicleModel, vehiclePlateNumber, seatingCapacity
       });
       alert('Driver registered successfully! Please login.');
       navigate('/driver/login');
@@ -157,6 +158,19 @@ const DriverRegister = () => {
                     placeholder="e.g. KA-01-EQ-1234"
                     value={vehiclePlateNumber}
                     onChange={(e) => setVehiclePlateNumber(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="auth-input-group">
+                  <label htmlFor="seatingCapacity">Seating Capacity (Excluding Driver)</label>
+                  <input 
+                    type="number" 
+                    id="seatingCapacity"
+                    className="auth-input" 
+                    placeholder="e.g. 4"
+                    min="1"
+                    value={seatingCapacity}
+                    onChange={(e) => setSeatingCapacity(e.target.value)}
                     required
                   />
                 </div>

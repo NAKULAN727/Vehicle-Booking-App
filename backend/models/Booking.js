@@ -6,6 +6,7 @@ const bookingSchema = new mongoose.Schema({
   driverId: { type: mongoose.Schema.Types.ObjectId, ref: 'Driver' },
   type: { type: String, enum: ['driver_only', 'driver_with_car'], default: 'driver_only' },
   carModel: { type: String },
+  passengers: { type: Number },
   date: { type: String, required: true },
   time: { type: String, required: true },
   pickupLocation: { type: String, required: true },

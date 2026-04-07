@@ -9,6 +9,7 @@ const driverSchema = new mongoose.Schema({
   vehicleMake: { type: String },
   vehicleModel: { type: String },
   vehiclePlateNumber: { type: String },
+  seatingCapacity: { type: Number },
   experience: { type: Number, default: 0 },
   availability: { type: Boolean, default: true },
 });
