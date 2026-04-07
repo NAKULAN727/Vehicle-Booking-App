@@ -1,0 +1,1429 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "forceNER": true,
+    "logLevel": "warn",
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "en"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "en": {
+        "settings": {
+          "locale": "en",
+          "trainByDomain": false,
+          "tag": "domain-manager-en",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "hi": {
+            "intent": "agent.greeting",
+            "domain": "default"
+          },
+          "hello": {
+            "intent": "agent.greeting",
+            "domain": "default"
+          },
+          "hey,there": {
+            "intent": "agent.greeting",
+            "domain": "default"
+          },
+          "good,morn": {
+            "intent": "agent.greeting",
+            "domain": "default"
+          },
+          "afternoon,good": {
+            "intent": "agent.greeting",
+            "domain": "default"
+          },
+          "driver,me,show": {
+            "intent": "driver.find",
+            "domain": "default"
+          },
+          "a,driver,find": {
+            "intent": "driver.find",
+            "domain": "default"
+          },
+          "avail,is,who": {
+            "intent": "driver.find",
+            "domain": "default"
+          },
+          "avail,driver,list": {
+            "intent": "driver.find",
+            "domain": "default"
+          },
+          "a,driver,need": {
+            "intent": "driver.find",
+            "domain": "default"
+          },
+          "ani,around,driver": {
+            "intent": "driver.find",
+            "domain": "default"
+          },
+          "driver,experienc": {
+            "intent": "driver.experience",
+            "domain": "default"
+          },
+          "driver,experi,with": {
+            "intent": "driver.experience",
+            "domain": "default"
+          },
+          "experienc,is,most,the,who": {
+            "intent": "driver.experience",
+            "domain": "default"
+          },
+          "driver,high,train": {
+            "intent": "driver.experience",
+            "domain": "default"
+          },
+          "best,driver": {
+            "intent": "driver.experience",
+            "domain": "default"
+          },
+          "a,driver,i,senior,want": {
+            "intent": "driver.experience",
+            "domain": "default"
+          },
+          "a,car,driver,with": {
+            "intent": "driver.car",
+            "domain": "default"
+          },
+          "a,cab,need": {
+            "intent": "driver.car",
+            "domain": "default"
+          },
+          "an,find,suv": {
+            "intent": "driver.car",
+            "domain": "default"
+          },
+          "hatchback,or,sedan": {
+            "intent": "driver.car",
+            "domain": "default"
+          },
+          "a,book,vehicl": {
+            "intent": "driver.car",
+            "domain": "default"
+          },
+          "a,car,need,ride,with": {
+            "intent": "driver.car",
+            "domain": "default"
+          },
+          "book,check,my": {
+            "intent": "booking.check",
+            "domain": "default"
+          },
+          "my,trip": {
+            "intent": "booking.check",
+            "domain": "default"
+          },
+          "histori,ride": {
+            "intent": "booking.check",
+            "domain": "default"
+          },
+          "is,my,of,ride,status,the,what": {
+            "intent": "booking.check",
+            "domain": "default"
+          },
+          "book,show": {
+            "intent": "booking.check",
+            "domain": "default"
+          },
+          "book,how,to": {
+            "intent": "booking.help",
+            "domain": "default"
+          },
+          "do,how,i,reserv": {
+            "intent": "booking.help",
+            "domain": "default"
+          },
+          "book,process": {
+            "intent": "booking.help",
+            "domain": "default"
+          },
+          "hire,how,to": {
+            "intent": "booking.help",
+            "domain": "default"
+          },
+          "help,me": {
+            "intent": "agent.help",
+            "domain": "default"
+          },
+          "can,do,what,you": {
+            "intent": "agent.help",
+            "domain": "default"
+          },
+          "option": {
+            "intent": "agent.help",
+            "domain": "default"
+          },
+          "support": {
+            "intent": "agent.help",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "agent.greeting": "default",
+          "driver.find": "default",
+          "driver.experience": "default",
+          "driver.car": "default",
+          "booking.check": "default",
+          "booking.help": "default",
+          "agent.help": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "hi",
+            "intent": "agent.greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hello",
+            "intent": "agent.greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hey there",
+            "intent": "agent.greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "good morning",
+            "intent": "agent.greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "good afternoon",
+            "intent": "agent.greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "show me drivers",
+            "intent": "driver.find"
+          },
+          {
+            "domain": "default",
+            "utterance": "find a driver",
+            "intent": "driver.find"
+          },
+          {
+            "domain": "default",
+            "utterance": "who is available",
+            "intent": "driver.find"
+          },
+          {
+            "domain": "default",
+            "utterance": "list available drivers",
+            "intent": "driver.find"
+          },
+          {
+            "domain": "default",
+            "utterance": "need a driver",
+            "intent": "driver.find"
+          },
+          {
+            "domain": "default",
+            "utterance": "any driver around",
+            "intent": "driver.find"
+          },
+          {
+            "domain": "default",
+            "utterance": "experienced driver",
+            "intent": "driver.experience"
+          },
+          {
+            "domain": "default",
+            "utterance": "driver with experience",
+            "intent": "driver.experience"
+          },
+          {
+            "domain": "default",
+            "utterance": "who is the most experienced",
+            "intent": "driver.experience"
+          },
+          {
+            "domain": "default",
+            "utterance": "highly trained driver",
+            "intent": "driver.experience"
+          },
+          {
+            "domain": "default",
+            "utterance": "best driver",
+            "intent": "driver.experience"
+          },
+          {
+            "domain": "default",
+            "utterance": "i want a senior driver",
+            "intent": "driver.experience"
+          },
+          {
+            "domain": "default",
+            "utterance": "driver with a car",
+            "intent": "driver.car"
+          },
+          {
+            "domain": "default",
+            "utterance": "need a cab",
+            "intent": "driver.car"
+          },
+          {
+            "domain": "default",
+            "utterance": "find an suv",
+            "intent": "driver.car"
+          },
+          {
+            "domain": "default",
+            "utterance": "sedan or hatchback",
+            "intent": "driver.car"
+          },
+          {
+            "domain": "default",
+            "utterance": "book a vehicle",
+            "intent": "driver.car"
+          },
+          {
+            "domain": "default",
+            "utterance": "need a ride with a car",
+            "intent": "driver.car"
+          },
+          {
+            "domain": "default",
+            "utterance": "check my booking",
+            "intent": "booking.check"
+          },
+          {
+            "domain": "default",
+            "utterance": "my trips",
+            "intent": "booking.check"
+          },
+          {
+            "domain": "default",
+            "utterance": "ride history",
+            "intent": "booking.check"
+          },
+          {
+            "domain": "default",
+            "utterance": "what is the status of my ride",
+            "intent": "booking.check"
+          },
+          {
+            "domain": "default",
+            "utterance": "show bookings",
+            "intent": "booking.check"
+          },
+          {
+            "domain": "default",
+            "utterance": "how to book",
+            "intent": "booking.help"
+          },
+          {
+            "domain": "default",
+            "utterance": "how do i reserve",
+            "intent": "booking.help"
+          },
+          {
+            "domain": "default",
+            "utterance": "booking process",
+            "intent": "booking.help"
+          },
+          {
+            "domain": "default",
+            "utterance": "how to hire",
+            "intent": "booking.help"
+          },
+          {
+            "domain": "default",
+            "utterance": "help me",
+            "intent": "agent.help"
+          },
+          {
+            "domain": "default",
+            "utterance": "what can you do",
+            "intent": "agent.help"
+          },
+          {
+            "domain": "default",
+            "utterance": "options",
+            "intent": "agent.help"
+          },
+          {
+            "domain": "default",
+            "utterance": "support",
+            "intent": "agent.help"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "en",
+              "tag": "nlu-en",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "hi": 1,
+              "hello": 1,
+              "hey": 1,
+              "there": 1,
+              "good": 1,
+              "morn": 1,
+              "afternoon": 1,
+              "show": 1,
+              "me": 1,
+              "driver": 1,
+              "find": 1,
+              "a": 1,
+              "who": 1,
+              "is": 1,
+              "avail": 1,
+              "list": 1,
+              "need": 1,
+              "ani": 1,
+              "around": 1,
+              "experienc": 1,
+              "with": 1,
+              "experi": 1,
+              "the": 1,
+              "most": 1,
+              "high": 1,
+              "train": 1,
+              "best": 1,
+              "i": 1,
+              "want": 1,
+              "senior": 1,
+              "car": 1,
+              "cab": 1,
+              "an": 1,
+              "suv": 1,
+              "sedan": 1,
+              "or": 1,
+              "hatchback": 1,
+              "book": 1,
+              "vehicl": 1,
+              "ride": 1,
+              "check": 1,
+              "my": 1,
+              "trip": 1,
+              "histori": 1,
+              "what": 1,
+              "status": 1,
+              "of": 1,
+              "how": 1,
+              "to": 1,
+              "do": 1,
+              "reserv": 1,
+              "process": 1,
+              "hire": 1,
+              "help": 1,
+              "can": 1,
+              "you": 1,
+              "option": 1,
+              "support": 1
+            },
+            "intents": {
+              "agent.greeting": 1,
+              "driver.find": 1,
+              "driver.experience": 1,
+              "driver.car": 1,
+              "booking.check": 1,
+              "booking.help": 1,
+              "agent.help": 1
+            },
+            "intentFeatures": {
+              "agent.greeting": {
+                "hi": 1,
+                "hello": 1,
+                "hey": 1,
+                "there": 1,
+                "good": 1,
+                "morn": 1,
+                "afternoon": 1
+              },
+              "driver.find": {
+                "show": 1,
+                "me": 1,
+                "driver": 1,
+                "find": 1,
+                "a": 1,
+                "who": 1,
+                "is": 1,
+                "avail": 1,
+                "list": 1,
+                "need": 1,
+                "ani": 1,
+                "around": 1
+              },
+              "driver.experience": {
+                "experienc": 1,
+                "driver": 1,
+                "with": 1,
+                "experi": 1,
+                "who": 1,
+                "is": 1,
+                "the": 1,
+                "most": 1,
+                "high": 1,
+                "train": 1,
+                "best": 1,
+                "i": 1,
+                "want": 1,
+                "a": 1,
+                "senior": 1
+              },
+              "driver.car": {
+                "driver": 1,
+                "with": 1,
+                "a": 1,
+                "car": 1,
+                "need": 1,
+                "cab": 1,
+                "find": 1,
+                "an": 1,
+                "suv": 1,
+                "sedan": 1,
+                "or": 1,
+                "hatchback": 1,
+                "book": 1,
+                "vehicl": 1,
+                "ride": 1
+              },
+              "booking.check": {
+                "check": 1,
+                "my": 1,
+                "book": 1,
+                "trip": 1,
+                "ride": 1,
+                "histori": 1,
+                "what": 1,
+                "is": 1,
+                "the": 1,
+                "status": 1,
+                "of": 1,
+                "show": 1
+              },
+              "booking.help": {
+                "how": 1,
+                "to": 1,
+                "book": 1,
+                "do": 1,
+                "i": 1,
+                "reserv": 1,
+                "process": 1,
+                "hire": 1
+              },
+              "agent.help": {
+                "help": 1,
+                "me": 1,
+                "what": 1,
+                "can": 1,
+                "you": 1,
+                "do": 1,
+                "option": 1,
+                "support": 1
+              }
+            },
+            "featuresToIntent": {
+              "hi": [
+                "agent.greeting"
+              ],
+              "hello": [
+                "agent.greeting"
+              ],
+              "hey": [
+                "agent.greeting"
+              ],
+              "there": [
+                "agent.greeting"
+              ],
+              "good": [
+                "agent.greeting"
+              ],
+              "morn": [
+                "agent.greeting"
+              ],
+              "afternoon": [
+                "agent.greeting"
+              ],
+              "show": [
+                "driver.find",
+                "booking.check"
+              ],
+              "me": [
+                "driver.find",
+                "agent.help"
+              ],
+              "driver": [
+                "driver.find",
+                "driver.experience",
+                "driver.car"
+              ],
+              "find": [
+                "driver.find",
+                "driver.car"
+              ],
+              "a": [
+                "driver.find",
+                "driver.experience",
+                "driver.car"
+              ],
+              "who": [
+                "driver.find",
+                "driver.experience"
+              ],
+              "is": [
+                "driver.find",
+                "driver.experience",
+                "booking.check"
+              ],
+              "avail": [
+                "driver.find"
+              ],
+              "list": [
+                "driver.find"
+              ],
+              "need": [
+                "driver.find",
+                "driver.car"
+              ],
+              "ani": [
+                "driver.find"
+              ],
+              "around": [
+                "driver.find"
+              ],
+              "experienc": [
+                "driver.experience"
+              ],
+              "with": [
+                "driver.experience",
+                "driver.car"
+              ],
+              "experi": [
+                "driver.experience"
+              ],
+              "the": [
+                "driver.experience",
+                "booking.check"
+              ],
+              "most": [
+                "driver.experience"
+              ],
+              "high": [
+                "driver.experience"
+              ],
+              "train": [
+                "driver.experience"
+              ],
+              "best": [
+                "driver.experience"
+              ],
+              "i": [
+                "driver.experience",
+                "booking.help"
+              ],
+              "want": [
+                "driver.experience"
+              ],
+              "senior": [
+                "driver.experience"
+              ],
+              "car": [
+                "driver.car"
+              ],
+              "cab": [
+                "driver.car"
+              ],
+              "an": [
+                "driver.car"
+              ],
+              "suv": [
+                "driver.car"
+              ],
+              "sedan": [
+                "driver.car"
+              ],
+              "or": [
+                "driver.car"
+              ],
+              "hatchback": [
+                "driver.car"
+              ],
+              "book": [
+                "driver.car",
+                "booking.check",
+                "booking.help"
+              ],
+              "vehicl": [
+                "driver.car"
+              ],
+              "ride": [
+                "driver.car",
+                "booking.check"
+              ],
+              "check": [
+                "booking.check"
+              ],
+              "my": [
+                "booking.check"
+              ],
+              "trip": [
+                "booking.check"
+              ],
+              "histori": [
+                "booking.check"
+              ],
+              "what": [
+                "booking.check",
+                "agent.help"
+              ],
+              "status": [
+                "booking.check"
+              ],
+              "of": [
+                "booking.check"
+              ],
+              "how": [
+                "booking.help"
+              ],
+              "to": [
+                "booking.help"
+              ],
+              "do": [
+                "booking.help",
+                "agent.help"
+              ],
+              "reserv": [
+                "booking.help"
+              ],
+              "process": [
+                "booking.help"
+              ],
+              "hire": [
+                "booking.help"
+              ],
+              "help": [
+                "agent.help"
+              ],
+              "can": [
+                "agent.help"
+              ],
+              "you": [
+                "agent.help"
+              ],
+              "option": [
+                "agent.help"
+              ],
+              "support": [
+                "agent.help"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "en",
+                "tag": "nlu-en",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "hi",
+                "hello",
+                "hey",
+                "there",
+                "good",
+                "morn",
+                "afternoon",
+                "show",
+                "me",
+                "driver",
+                "find",
+                "a",
+                "who",
+                "is",
+                "avail",
+                "list",
+                "need",
+                "ani",
+                "around",
+                "experienc",
+                "with",
+                "experi",
+                "the",
+                "most",
+                "high",
+                "train",
+                "best",
+                "i",
+                "want",
+                "senior",
+                "car",
+                "cab",
+                "an",
+                "suv",
+                "sedan",
+                "or",
+                "hatchback",
+                "book",
+                "vehicl",
+                "ride",
+                "check",
+                "my",
+                "trip",
+                "histori",
+                "what",
+                "status",
+                "of",
+                "how",
+                "to",
+                "do",
+                "reserv",
+                "process",
+                "hire",
+                "help",
+                "can",
+                "you",
+                "option",
+                "support"
+              ],
+              "intents": [
+                "agent.greeting",
+                "driver.find",
+                "driver.experience",
+                "driver.car",
+                "booking.check",
+                "booking.help",
+                "agent.help"
+              ],
+              "perceptrons": [
+                [
+                  10.379895210266113,
+                  10.371163368225098,
+                  5.245954513549805,
+                  5.245954513549805,
+                  6.994645595550537,
+                  3.502434492111206,
+                  3.492401361465454,
+                  -1.094963788986206,
+                  -2.0963809490203857,
+                  -3.209129810333252,
+                  -1.4520717859268188,
+                  -1.7900468111038208,
+                  -1.2611163854599,
+                  -1.3510276079177856,
+                  -1.1819096803665161,
+                  -0.26296597719192505,
+                  -1.1627347469329834,
+                  -0.3957991302013397,
+                  -0.3957991302013397,
+                  -0.7196690440177917,
+                  -0.4519060552120209,
+                  -0.28978419303894043,
+                  -0.4382111728191376,
+                  -0.3442787826061249,
+                  -0.3326182961463928,
+                  -0.3326182961463928,
+                  -0.5843405723571777,
+                  -0.5234317183494568,
+                  -0.01717216521501541,
+                  -0.01717216521501541,
+                  -0.13974814116954803,
+                  -0.8411857485771179,
+                  -1.170936942100525,
+                  -1.170936942100525,
+                  -1.264651894569397,
+                  -1.264651894569397,
+                  -1.264651894569397,
+                  -2.744565486907959,
+                  -0.2630096971988678,
+                  -2.01108980178833,
+                  -0.42358115315437317,
+                  -2.171004056930542,
+                  -1.622058629989624,
+                  -1.7816904783248901,
+                  -0.8848755359649658,
+                  -0.05934195965528488,
+                  -0.05934195965528488,
+                  -1.696833848953247,
+                  -1.1730414628982544,
+                  -1.318755865097046,
+                  -0.4892215132713318,
+                  -1.0479001998901367,
+                  -0.9236763715744019,
+                  -1.6956067085266113,
+                  -0.7949641346931458,
+                  -0.7949641346931458,
+                  -3.690131902694702,
+                  -3.673231601715088,
+                  3.7839645092285257
+                ],
+                [
+                  -0.11584696173667908,
+                  -0.11156278103590012,
+                  -0.0867048054933548,
+                  -0.0867048054933548,
+                  -0.1601656824350357,
+                  -0.07569367438554764,
+                  -0.06780625879764557,
+                  4.446126937866211,
+                  4.059134483337402,
+                  7.378520965576172,
+                  4.9631242752075195,
+                  3.6664485931396484,
+                  4.466059684753418,
+                  4.256928443908691,
+                  7.07781457901001,
+                  1.5190695524215698,
+                  4.169432640075684,
+                  4.239907264709473,
+                  4.239907264709473,
+                  -5.756745338439941,
+                  -5.729246139526367,
+                  -1.9337576627731323,
+                  -1.2813054323196411,
+                  -1.0564453601837158,
+                  -2.909708261489868,
+                  -2.909708261489868,
+                  -5.712297439575195,
+                  -3.174574375152588,
+                  -3.146477699279785,
+                  -3.146477699279785,
+                  -3.718160629272461,
+                  -5.886358737945557,
+                  -1.884822964668274,
+                  -1.884822964668274,
+                  -0.15795256197452545,
+                  -0.15795256197452545,
+                  -0.15795256197452545,
+                  -2.9033923149108887,
+                  -0.6127627491950989,
+                  -0.458499550819397,
+                  -0.04940708726644516,
+                  -0.3978082537651062,
+                  -0.10992056876420975,
+                  -0.0806180015206337,
+                  -0.2710190415382385,
+                  -0.19429780542850494,
+                  -0.19429780542850494,
+                  -0.1538408249616623,
+                  -0.12593305110931396,
+                  -0.0825449600815773,
+                  -0.0140485018491745,
+                  -0.022985583171248436,
+                  -0.09188711643218994,
+                  -2.51283597946167,
+                  -0.056204020977020264,
+                  -0.056204020977020264,
+                  -0.12502732872962952,
+                  -0.12040367722511292,
+                  -1.587029658665157
+                ],
+                [
+                  -0.43467214703559875,
+                  -0.42284464836120605,
+                  -0.29183429479599,
+                  -0.29183429479599,
+                  -0.46331802010536194,
+                  -0.2260434627532959,
+                  -0.2027183324098587,
+                  -3.5500712394714355,
+                  -3.613034963607788,
+                  6.8130083084106445,
+                  -2.6034109592437744,
+                  -4.641035079956055,
+                  1.4815559387207031,
+                  0.7937500476837158,
+                  -4.148848533630371,
+                  -3.0138442516326904,
+                  -2.5174667835235596,
+                  -3.579317331314087,
+                  -3.579317331314087,
+                  7.112178325653076,
+                  1.522445559501648,
+                  5.6050310134887695,
+                  1.9287534952163696,
+                  2.6165597438812256,
+                  3.5651118755340576,
+                  3.5651118755340576,
+                  7.073688507080078,
+                  3.225537061691284,
+                  4.265774726867676,
+                  4.265774726867676,
+                  -4.081958293914795,
+                  -0.20035380125045776,
+                  -0.27222079038619995,
+                  -0.27222079038619995,
+                  -0.3517383337020874,
+                  -0.3517383337020874,
+                  -0.3517383337020874,
+                  -0.8843835592269897,
+                  -0.1561104953289032,
+                  -1.0939176082611084,
+                  -0.14601163566112518,
+                  -1.1343600749969482,
+                  -0.22845593094825745,
+                  -0.2259213775396347,
+                  -0.761040210723877,
+                  -0.6129589676856995,
+                  -0.6129589676856995,
+                  -1.3593183755874634,
+                  -0.2775476574897766,
+                  -1.181532859802246,
+                  -1.0403273105621338,
+                  -0.14226214587688446,
+                  -0.1427019238471985,
+                  -0.1784096360206604,
+                  -0.09236812591552734,
+                  -0.09236812591552734,
+                  -0.4542607069015503,
+                  -0.44707024097442627,
+                  0.35610832685083
+                ],
+                [
+                  -1.0696171522140503,
+                  -1.0669875144958496,
+                  -0.5739412903785706,
+                  -0.5739412903785706,
+                  -0.8195409774780273,
+                  -0.4192875921726227,
+                  -0.38091883063316345,
+                  -1.9851658344268799,
+                  -0.704317033290863,
+                  -6.012819290161133,
+                  -0.805802583694458,
+                  6.150845050811768,
+                  -0.22869287431240082,
+                  -0.5384202003479004,
+                  -0.2996536195278168,
+                  -0.06615804880857468,
+                  -1.0775514841079712,
+                  -0.008268386125564575,
+                  -0.008268386125564575,
+                  -0.01854901947081089,
+                  5.884870529174805,
+                  -0.7852956652641296,
+                  -0.2569921910762787,
+                  -0.014977752231061459,
+                  0,
+                  0,
+                  0,
+                  -0.9109177589416504,
+                  -0.6382861137390137,
+                  -0.6382861137390137,
+                  6.680715084075928,
+                  7.848815441131592,
+                  6.927198886871338,
+                  6.927198886871338,
+                  4.394853591918945,
+                  4.394853591918945,
+                  4.394853591918945,
+                  0.9053223133087158,
+                  6.1197052001953125,
+                  -4.128990650177002,
+                  -0.6764591932296753,
+                  -1.4467906951904297,
+                  -0.393518328666687,
+                  -0.9071030020713806,
+                  -0.5625828504562378,
+                  -0.20809145271778107,
+                  -0.20809145271778107,
+                  -1.1642584800720215,
+                  -0.9014126658439636,
+                  -0.5278822779655457,
+                  -0.2158009260892868,
+                  -1.9756500720977783,
+                  -0.17883580923080444,
+                  -0.5924615859985352,
+                  -0.2577228248119354,
+                  -0.2577228248119354,
+                  -1.075140118598938,
+                  -1.0730458498001099,
+                  1.0824051861844353
+                ],
+                [
+                  -1.1098076105117798,
+                  -1.1047494411468506,
+                  -0.5986606478691101,
+                  -0.5986606478691101,
+                  -0.8184335827827454,
+                  -0.4192413091659546,
+                  -0.39468175172805786,
+                  8.322793006896973,
+                  -4.498208045959473,
+                  -4.680192470550537,
+                  -0.458017498254776,
+                  -3.4390769004821777,
+                  -0.9139547944068909,
+                  -0.6394434571266174,
+                  -0.46543657779693604,
+                  -0.06568214297294617,
+                  -1.3799242973327637,
+                  -0.08666465431451797,
+                  -0.08666465431451797,
+                  -0.5416474342346191,
+                  -1.2977569103240967,
+                  -0.045157141983509064,
+                  -0.21105772256851196,
+                  -0.4584120810031891,
+                  -0.04563470184803009,
+                  -0.04563470184803009,
+                  -0.04070358723402023,
+                  -0.24959774315357208,
+                  -0.0032689357176423073,
+                  -0.0032689357176423073,
+                  -1.22927725315094,
+                  -0.060393571853637695,
+                  -0.34193751215934753,
+                  -0.34193751215934753,
+                  -0.38078659772872925,
+                  -0.38078659772872925,
+                  -0.38078659772872925,
+                  4.345963954925537,
+                  -1.9285832643508911,
+                  6.162952899932861,
+                  1.5259205102920532,
+                  7.488687038421631,
+                  5.626541614532471,
+                  7.044544696807861,
+                  -0.2762574553489685,
+                  0.3407464921474457,
+                  0.3407464921474457,
+                  -2.8448798656463623,
+                  -2.5600016117095947,
+                  -0.8461268544197083,
+                  -0.23340556025505066,
+                  -5.247657299041748,
+                  -0.13245201110839844,
+                  -0.42876553535461426,
+                  -0.5533312559127808,
+                  -0.5533312559127808,
+                  -1.1228761672973633,
+                  -1.1159104108810425,
+                  1.0899183889687551
+                ],
+                [
+                  -0.6878432035446167,
+                  -0.6861199140548706,
+                  -0.36982497572898865,
+                  -0.36982497572898865,
+                  -0.5873494744300842,
+                  -0.2886104881763458,
+                  -0.25874069333076477,
+                  -3.9717702865600586,
+                  -0.5393213033676147,
+                  -1.1683646440505981,
+                  -0.3504501283168793,
+                  -2.3689582347869873,
+                  -0.3405613601207733,
+                  -0.35373395681381226,
+                  -0.3073572814464569,
+                  -0.07459571212530136,
+                  -0.1771898865699768,
+                  -0.08992010354995728,
+                  -0.08992010354995728,
+                  -0.21081581711769104,
+                  -0.09196589142084122,
+                  -0.06656424701213837,
+                  -0.12312401831150055,
+                  -0.1081731840968132,
+                  -0.05701189860701561,
+                  -0.05701189860701561,
+                  -0.05226273834705353,
+                  2.4143152236938477,
+                  -0.2944594919681549,
+                  -0.2944594919681549,
+                  -0.012915506958961487,
+                  -0.07922118902206421,
+                  -0.23230279982089996,
+                  -0.23230279982089996,
+                  -0.25677359104156494,
+                  -0.25677359104156494,
+                  -0.25677359104156494,
+                  3.323195219039917,
+                  -1.7096881866455078,
+                  -0.364240437746048,
+                  -1.9899392127990723,
+                  -2.0999298095703125,
+                  -0.0751485824584961,
+                  -0.331359326839447,
+                  -0.8730933666229248,
+                  -0.006259319372475147,
+                  -0.006259319372475147,
+                  6.579805850982666,
+                  3.828456401824951,
+                  1.8463610410690308,
+                  2.7525033950805664,
+                  10.12369441986084,
+                  3.0811405181884766,
+                  -0.4074506461620331,
+                  -0.8599345088005066,
+                  -0.8599345088005066,
+                  -0.6919846534729004,
+                  -0.6905601620674133,
+                  0.7015377611386832
+                ],
+                [
+                  -3.1941795349121094,
+                  -3.180551528930664,
+                  -1.629652500152588,
+                  -1.629652500152588,
+                  -2.1751348972320557,
+                  -1.0906556844711304,
+                  -1.0841158628463745,
+                  -3.09761643409729,
+                  4.070417881011963,
+                  -4.232705116271973,
+                  -1.2049304246902466,
+                  -1.451027274131775,
+                  -0.9218084216117859,
+                  -1.4353375434875488,
+                  -0.9047955870628357,
+                  -0.14126428961753845,
+                  -1.0055913925170898,
+                  -0.19475388526916504,
+                  -0.19475388526916504,
+                  -0.35739991068840027,
+                  -0.22610190510749817,
+                  -0.12354788929224014,
+                  -0.6856206655502319,
+                  -0.17440901696681976,
+                  -0.13195087015628815,
+                  -0.13195087015628815,
+                  -0.14575567841529846,
+                  -1.4832203388214111,
+                  -0.010754966177046299,
+                  -0.010754966177046299,
+                  -0.07600344717502594,
+                  -0.8050366044044495,
+                  -1.0282154083251953,
+                  -1.0282154083251953,
+                  -1.0870190858840942,
+                  -1.0870190858840942,
+                  -1.0870190858840942,
+                  -2.055828332901001,
+                  -0.22930079698562622,
+                  -1.9260120391845703,
+                  -0.2347373217344284,
+                  -2.016577959060669,
+                  -1.2379584312438965,
+                  -1.3273420333862305,
+                  2.7367491722106934,
+                  -0.48268797993659973,
+                  -0.48268797993659973,
+                  -2.1078901290893555,
+                  -0.6459236741065979,
+                  1.788408637046814,
+                  -1.4617102146148682,
+                  -1.1962223052978516,
+                  -0.5040584802627563,
+                  6.951099395751953,
+                  3.2502784729003906,
+                  3.2502784729003906,
+                  10.908600807189941,
+                  10.877302169799805,
+                  3.273896021575447
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "en",
+        "hi"
+      ],
+      [
+        "en",
+        "hello"
+      ],
+      [
+        "en",
+        "hey there"
+      ],
+      [
+        "en",
+        "good morning"
+      ],
+      [
+        "en",
+        "good afternoon"
+      ],
+      [
+        "en",
+        "show me drivers"
+      ],
+      [
+        "en",
+        "find a driver"
+      ],
+      [
+        "en",
+        "who is available"
+      ],
+      [
+        "en",
+        "list available drivers"
+      ],
+      [
+        "en",
+        "need a driver"
+      ],
+      [
+        "en",
+        "any driver around"
+      ],
+      [
+        "en",
+        "experienced driver"
+      ],
+      [
+        "en",
+        "driver with experience"
+      ],
+      [
+        "en",
+        "who is the most experienced"
+      ],
+      [
+        "en",
+        "highly trained driver"
+      ],
+      [
+        "en",
+        "best driver"
+      ],
+      [
+        "en",
+        "i want a senior driver"
+      ],
+      [
+        "en",
+        "driver with a car"
+      ],
+      [
+        "en",
+        "need a cab"
+      ],
+      [
+        "en",
+        "find an suv"
+      ],
+      [
+        "en",
+        "sedan or hatchback"
+      ],
+      [
+        "en",
+        "book a vehicle"
+      ],
+      [
+        "en",
+        "need a ride with a car"
+      ],
+      [
+        "en",
+        "check my booking"
+      ],
+      [
+        "en",
+        "my trips"
+      ],
+      [
+        "en",
+        "ride history"
+      ],
+      [
+        "en",
+        "what is the status of my ride"
+      ],
+      [
+        "en",
+        "show bookings"
+      ],
+      [
+        "en",
+        "how to book"
+      ],
+      [
+        "en",
+        "how do i reserve"
+      ],
+      [
+        "en",
+        "booking process"
+      ],
+      [
+        "en",
+        "how to hire"
+      ],
+      [
+        "en",
+        "help me"
+      ],
+      [
+        "en",
+        "what can you do"
+      ],
+      [
+        "en",
+        "options"
+      ],
+      [
+        "en",
+        "support"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {}
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}

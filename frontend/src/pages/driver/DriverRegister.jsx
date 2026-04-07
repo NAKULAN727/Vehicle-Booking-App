@@ -11,6 +11,7 @@ const DriverRegister = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [licenseNumber, setLicenseNumber] = useState('');
+  const [experience, setExperience] = useState('');
   const [type, setType] = useState('driver_only');
   const [vehicleMake, setVehicleMake] = useState('');
   const [vehicleModel, setVehicleModel] = useState('');
@@ -22,7 +23,7 @@ const DriverRegister = () => {
     try {
       // Create actual driver profile on backend database
       await axios.post(`${API_URL}/drivers`, { 
-        name, email, password, licenseNumber, type, vehicleMake, vehicleModel, vehiclePlateNumber 
+        name, email, password, licenseNumber, experience, type, vehicleMake, vehicleModel, vehiclePlateNumber 
       });
       alert('Driver registered successfully! Please login.');
       navigate('/driver/login');
@@ -90,6 +91,20 @@ const DriverRegister = () => {
                 placeholder="Enter your license number"
                 value={licenseNumber}
                 onChange={(e) => setLicenseNumber(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="auth-input-group">
+              <label htmlFor="experience">Years of Experience</label>
+              <input 
+                type="number" 
+                id="experience"
+                className="auth-input" 
+                placeholder="e.g. 5"
+                min="0"
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
                 required
               />
             </div>

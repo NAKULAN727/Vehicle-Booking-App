@@ -23,7 +23,7 @@ router.get('/drivers', async (req, res) => {
 // POST /drivers - Register a new driver
 router.post('/drivers', async (req, res) => {
   try {
-    const { name, email, password, licenseNumber, type, vehicleMake, vehicleModel, vehiclePlateNumber } = req.body;
+    const { name, email, password, licenseNumber, type, vehicleMake, vehicleModel, vehiclePlateNumber, experience } = req.body;
     
     const newDriver = new Driver({
       name,
@@ -34,6 +34,7 @@ router.post('/drivers', async (req, res) => {
       vehicleMake,
       vehicleModel,
       vehiclePlateNumber,
+      experience: experience || 0,
       availability: true
     });
 
@@ -90,46 +91,76 @@ router.get('/bookings', async (req, res) => {
   }
 });
 
-// POST /chat - Generative Chatbot endpoint
+const { manager } = require('../chatbotModel');
+
+// POST /chat - Chatbot endpoint (Custom Machine Learning Model)
 router.post('/chat', async (req, res) => {
   try {
     const { message, userId } = req.body;
     if (!message) return res.status(400).json({ error: 'Message is required' });
     
-    if (!process.env.GEMINI_API_KEY) {
-      return res.json({ reply: "I am ready to be a true AI Assistant! However, I need an API Key first.\n\nPlease add a `GEMINI_API_KEY` parameter in your backend `.env` file and restart the server!" });
+    // Evaluate message against our trained local NLP model
+    const nlpResponse = await manager.process('en', message);
+    const intent = nlpResponse.intent;
+    const score = nlpResponse.score;
+
+    // Reject extremely low confidence predictions (fallback)
+    if (score < 0.4 || intent === 'None') {
+      return res.json({ reply: "I deeply apologize, but I am unable to process that specific request. May I assist you with checking driver availability, reviewing your itineraries, or providing booking instructions instead?" });
     }
 
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    
-    // Fetch live system data
-    const drivers = await Driver.find({ availability: true });
-    const query = (userId && userId !== 'user_123') ? { userId } : {};
-    const bookings = await Booking.find(query).populate('driverId');
+    switch(intent) {
+      case 'driver.experience': {
+        const drivers = await Driver.find({ availability: true }).sort({ experience: -1 });
+        if (drivers.length === 0) return res.json({ reply: 'I apologize, but we have no available drivers at this moment.' });
+        
+        const driverNames = drivers.map(d => `${d.name} (${d.experience || 0} years experience)`).join('\n- ');
+        return res.json({ reply: `Certainly! Here are our available drivers, expertly sorted by their years of experience:\n\n- ${driverNames}\n\nPlease proceed to our reservation system to confirm your request.` });
+      }
 
-    // Build Context
-    const driverContext = drivers.map(d => `${d.name} (${d.type === 'driver_with_car' ? `Driver + Vehicle [${d.vehiclePlateNumber || 'Unknown'}]` : 'Driver Only'})`).join(', ');
-    const bookingContext = bookings.map(b => `${b.date} at ${b.time} - ${b.status}`).join(' | ');
+      case 'driver.car': {
+        const drivers = await Driver.find({ availability: true, type: 'driver_with_car' });
+        if (drivers.length === 0) return res.json({ reply: 'I regret to inform you that all of our drivers equipped with vehicles are currently engaged. Please check back shortly.' });
+        
+        const driverNames = drivers.map(d => `${d.name} (${d.vehicleMake || 'Premium'} ${d.vehicleModel || 'Vehicle'})`).join('\n- ');
+        return res.json({ reply: `Excellent news. We currently have ${drivers.length} premium driver(s) with private vehicles ready for dispatch:\n\n- ${driverNames}\n\nYou may secure your reservation directly through our Drivers interface.` });
+      }
 
-    const prompt = `You are an Executive Vehicle Booking Assistant. 
-    Answer the user's query naturally, politely, and comprehensively using plain text. Do not output markdown arrays.
-    Do NOT output pre-programmed menus or ask them predefined questions to select from. Just address their exact underlying query intelligently.
-    
-    CONTEXT (Your Database):
-    Available Drivers right now: ${drivers.length > 0 ? driverContext : 'None available currently.'}
-    The User's Bookings: ${bookings.length > 0 ? bookingContext : 'No bookings exist for this user.'}
-    
-    User Query: "${message}"`;
+      case 'driver.find': {
+        const drivers = await Driver.find({ availability: true });
+        if (drivers.length === 0) return res.json({ reply: 'I apologize, but all of our executive drivers are currently deployed. We anticipate more availability shortly.' });
+        const driverNames = drivers.map(d => `${d.name} (${d.type === 'driver_only' ? 'Driver Only' : 'With Vehicle'})`).join('\n- ');
+        return res.json({ reply: `We presently have ${drivers.length} highly qualified driver(s) available for immediate booking:\n\n- ${driverNames}\n\nPlease proceed to our reservation system to confirm your request.` });
+      }
 
-    const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: prompt,
-    });
+      case 'booking.check': {
+        const query = (userId && userId !== 'user_123') ? { userId } : {};
+        const bookings = await Booking.find(query).populate('driverId');
+        
+        if (bookings.length === 0) return res.json({ reply: 'Upon reviewing our records, it appears you do not have any active or upcoming reservations at this time.' });
+        
+        const bookingDetails = bookings.map(b => `- Date: ${b.date} | Time: ${b.time} | Status: ${b.status.toUpperCase()}${b.driverId ? ` (Driver: ${b.driverId.name})` : ''}`).join('\n');
+        return res.json({ reply: `I have retrieved your booking itinerary:\n\n${bookingDetails}\n\nWe look forward to providing you with exceptional service.` });
+      }
 
-    return res.json({ reply: response.text });
+      case 'booking.help': {
+        return res.json({ reply: 'Securing a reservation is quite straightforward. Please follow these instructions:\n\n1. Navigate to our professional "Drivers" directory.\n2. Select the chauffeur that best meets your requirements.\n3. Proceed to "Book" and specify your preferred date and time.\n4. Finalize and confirm your itinerary.\n\nOur team looks forward to serving you.' });
+      }
+
+      case 'agent.greeting': {
+        return res.json({ reply: 'Greetings! I am your Custom Trained Vehicle Booking Assistant. How may I assist you today?' });
+      }
+
+      case 'agent.help': {
+        return res.json({ reply: 'I would be delighted to assist you. Here are some of the services I provide:\n- Checking real-time driver availability based on experience or vehicle type\n- Retrieving your personal booking itinerary\n- Guiding you through our reservation process\n\nPlease let me know how I may serve you.' });
+      }
+
+      default:
+        return res.json({ reply: "I deeply apologize, but I am unable to process that specific request. May I assist you with checking driver availability or reviewing your itineraries instead?" });
+    }
+
   } catch (error) {
-    console.error('AI Error:', error);
-    res.status(500).json({ error: 'Chatbot encountered an AI system error: ' + error.message });
+    res.status(500).json({ error: 'Chatbot encountered an AI error: ' + error.message });
   }
 });
 
